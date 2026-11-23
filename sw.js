@@ -3,7 +3,7 @@
  * オフライン動作 & キャッシュ管理
  */
 
-const CACHE_NAME = 'ten-seconds-game-v1';
+const CACHE_NAME = 'ten-seconds-game-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
