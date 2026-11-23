@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>10sでぴったり止めろ！</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container">
+    <header class="game-header">
+      <h1 class="game-title">10sでぴったり止めろ！</h1>
+    </header>
+
+    <main class="game-main">
+      <!-- 計測表示エリア -->
+      <div class="display-box-wrapper">
+        <div class="display-box" id="displayBox">
+          <!-- 初期表示・結果表示用テキスト -->
+          <span class="display-time" id="displayTime">10.00</span>
+          
+          <!-- 計測中の時計アイコン（上下に浮遊アニメーション） -->
+          <div class="clock-icon-wrapper" id="clockIconWrapper" aria-hidden="true">
+            <svg class="clock-icon" viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="54" r="38" fill="#ffffff" stroke="#2c3e50" stroke-width="6"/>
+              <!-- 時計の上部パーツ -->
+              <rect x="44" y="8" width="12" height="8" rx="2" fill="#2c3e50"/>
+              <path d="M50 14 L50 20" stroke="#2c3e50" stroke-width="4"/>
+              <circle cx="26" cy="24" r="4" fill="#2c3e50"/>
+              <circle cx="74" cy="24" r="4" fill="#2c3e50"/>
+              <!-- 文字盤の目盛り -->
+              <line x1="50" y1="22" x2="50" y2="28" stroke="#7f8c8d" stroke-width="3" stroke-linecap="round"/>
+              <line x1="50" y1="80" x2="50" y2="86" stroke="#7f8c8d" stroke-width="3" stroke-linecap="round"/>
+              <line x1="18" y1="54" x2="24" y2="54" stroke="#7f8c8d" stroke-width="3" stroke-linecap="round"/>
+              <line x1="76" y1="54" x2="82" y2="54" stroke="#7f8c8d" stroke-width="3" stroke-linecap="round"/>
+              <!-- 針 -->
+              <line x1="50" y1="54" x2="50" y2="34" stroke="#2c3e50" stroke-width="4" stroke-linecap="round" class="hour-hand"/>
+              <line x1="50" y1="54" x2="68" y2="54" stroke="#e74c3c" stroke-width="3" stroke-linecap="round" class="minute-hand"/>
+              <circle cx="50" cy="54" r="4" fill="#2c3e50"/>
+            </svg>
+          </div>
+
+          <!-- 「殿堂入り！」ポップアップ（右上に赤文字で表示） -->
+          <div class="hall-of-fame-badge" id="hallOfFameBadge">殿堂入り！</div>
+        </div>
+
+        <!-- メッセージ表示エリア（ランク外の励まし / 20秒放置時の警告） -->
+        <div class="status-message" id="statusMessage" aria-live="polite"></div>
+      </div>
+
+      <!-- 操作ボタン -->
+      <div class="button-area">
+        <button type="button" class="action-btn btn-start" id="actionBtn">スタート</button>
+      </div>
+
+      <!-- ランキングエリア -->
+      <section class="ranking-section">
+        <h2 class="ranking-title">ランキング</h2>
+        <div class="ranking-table-container">
+          <table class="ranking-table">
+            <thead>
+              <tr>
+                <th class="col-date">日時</th>
+                <th class="col-name">ニックネーム</th>
+                <th class="col-time">記録[s]</th>
+              </tr>
+            </thead>
+            <tbody id="rankingBody">
+              <!-- JSでTop5を動的に生成 -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ニックネーム入力モーダル -->
+  <div class="modal-overlay" id="nicknameModal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 class="modal-title" id="modalTitle">ニックネームを入力してください</h3>
+      <p class="modal-subtext">※最大10文字（未入力は「No Name」）</p>
+      <form id="nicknameForm">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="nicknameInput"
+            class="nickname-input"
+            maxlength="10"
+            placeholder="ニックネーム"
+            autocomplete="off"
+          />
+          <div class="char-count" id="charCount">0/10</div>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="modal-submit-btn" id="modalSubmitBtn">決定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
